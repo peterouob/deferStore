@@ -1,4 +1,4 @@
-package logictoken
+package logicToken
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ type Token struct {
 }
 
 func Sign(token *Token) (string, error) {
-	return jwt.NewWithClaims(jwt.SigningMethodES256, token).SignedString([]byte(config.Config.GetString("jwt.key")))
+	return jwt.NewWithClaims(jwt.SigningMethodHS256, token).SignedString([]byte(config.Config.GetString("jwt.key")))
 }
 
 func Parse(sign string) (*Token, error) {

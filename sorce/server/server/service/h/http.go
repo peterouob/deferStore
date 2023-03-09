@@ -19,7 +19,7 @@ func Forbidden(c *gin.Context) {
 }
 
 func SetCookie(c *gin.Context, key, val string) {
-	c.SetCookie(key, val, 365*3600, "/", config.Config.GetString("server.host"), false, false)
+	c.SetCookie(key, val, 365*3600, "/", config.Config.GetString("server.host"), false, true)
 }
 func RemoveCookie(c *gin.Context, key string) {
 	c.SetCookie(key, "", -1, "/", config.Config.GetString("server.host"), false, true)
