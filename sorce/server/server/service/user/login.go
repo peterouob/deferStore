@@ -1,7 +1,6 @@
 package user
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -40,7 +39,7 @@ func Login(c *gin.Context) {
 		}
 		if sign, err := logicToken.Sign(&token); err == nil {
 			h.SetCookie(c, "token", sign)
-			fmt.Println(sign)
+			//fmt.Println(sign)
 			h.Ok(c)
 		} else {
 			h.Fail(c, err)

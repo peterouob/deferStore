@@ -70,7 +70,7 @@ func Register(c *gin.Context) {
 		h.Fail(c, err)
 	} else {
 		h.SetCookie(c, "token", signToken)
-		fmt.Println(signToken)
+		//fmt.Println(signToken)
 		h.Ok(c)
 	}
 }
