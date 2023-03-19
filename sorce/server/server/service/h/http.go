@@ -11,6 +11,14 @@ func Ok(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"msg": "ok"})
 }
 
+func OKMessage(c *gin.Context, any interface{}) {
+	c.JSON(http.StatusOK, gin.H{"msg": any})
+}
+
+func FailMessage(c *gin.Context, any interface{}) {
+	c.JSON(http.StatusInternalServerError, gin.H{"error": any})
+}
+
 func Fail(c *gin.Context, err error) {
 	c.JSON(http.StatusBadRequest, gin.H{"code": -1, "message": err.Error()})
 }

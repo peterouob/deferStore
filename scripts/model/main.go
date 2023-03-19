@@ -19,6 +19,6 @@ func main() {
 		Mode:         gen.WithDefaultQuery | gen.WithoutContext,
 	})
 	g.UseDB(db)
-	g.ApplyBasic(g.GenerateAllTable()...)
+	g.ApplyBasic(g.GenerateModel("Account"), g.GenerateModel("block"), g.GenerateModel("goods", gen.FieldType("price", "decimal.Decimal"), gen.FieldType("original_price", "decimal.Decimal")))
 	g.Execute()
 }
