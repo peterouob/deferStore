@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"server/server/service/h"
 )
 
 type ListRequest struct {
@@ -33,5 +34,6 @@ func List(c *gin.Context) {
 			Name: "name",
 		})
 	}
-	c.JSON(http.StatusOK, resp)
+	tk := h.GetToken(c)
+	c.JSON(http.StatusOK, tk)
 }

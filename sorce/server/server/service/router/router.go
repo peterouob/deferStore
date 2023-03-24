@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	serviceCart "server/server/service/account/cart"
 	goodsService "server/server/service/account/goods"
 	serviceOrder "server/server/service/account/order"
 	"server/server/service/h"
@@ -17,16 +18,22 @@ func Router(g *gin.Engine) {
 		v1.POST("/logout", user.Logout)
 	}
 
-	goods := v1.Group("/goods")
-	//展示首頁
-	goods.GET("/homepage", goodsService.HomePage)
-	//傳入id後顯示的畫面
-	goods.GET("/get", goodsService.Get)
 	account := g.Group("/account")
 	account.Use(h.Auth())
-	order := account.Group("/order")
 	{
+		order := account.Group("/order")
 		order.POST("/list", serviceOrder.List)
+	}
+	{
+		goods := account.Group("/goods")
+		//展示首頁
+		goods.GET("/homepage", goodsService.HomePage)
+		//傳入id後顯示的畫面
+		goods.GET("/get", goodsService.Get)
+	}
+	{
+		cart := account.Group("/cart")
+		cart.POST("/add", serviceCart.Add)
 	}
 	//goods := account.Group("/goods")
 	//{

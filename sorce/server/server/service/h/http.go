@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"server/component/config"
+	logicToken "server/logic/token"
 )
 
 func Ok(c *gin.Context) {
@@ -13,6 +14,14 @@ func Ok(c *gin.Context) {
 
 func OKMessage(c *gin.Context, any interface{}) {
 	c.JSON(http.StatusOK, gin.H{"msg": any})
+}
+
+func OkFail(c *gin.Context, body any, err error) {
+	if err != nil {
+		Fail(c, err)
+	} else {
+		c.JSON(http.StatusOK, gin.H{"code": 0, "message": "", "body": body})
+	}
 }
 
 func FailMessage(c *gin.Context, any interface{}) {
@@ -32,6 +41,15 @@ func SetCookie(c *gin.Context, key, val string) {
 }
 func RemoveCookie(c *gin.Context, key string) {
 	c.SetCookie(key, "", -1, "/", config.Config.GetString("server.host"), false, true)
+}
+
+func GetToken(c *gin.Context) *logicToken.Token {
+	value, exists := c.Get("token")
+	if !exists {
+		return nil
+	} else {
+		return value.(*logicToken.Token)
+	}
 }
 
 func Cors(context *gin.Context) {
